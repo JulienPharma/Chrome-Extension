@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "LinkedIn Recruiter Scraper",
-    "version": "1.3",
+    "version": "1.4",
     "description": "Scrape public profile URLs from LinkedIn Recruiter pipeline and search pages.",
     "permissions": ["activeTab", "scripting"],
     "host_permissions": ["https://www.linkedin.com/*"],

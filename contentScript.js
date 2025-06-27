@@ -68,7 +68,12 @@
       ];
       for (const sel of selectors) {
         const next = document.querySelector(sel);
-        if (next && !next.getAttribute('aria-disabled')) {
+        if (
+          next &&
+          next.offsetParent !== null &&
+          !next.disabled &&
+          next.getAttribute('aria-disabled') !== 'true'
+        ) {
           next.click();
           console.log("➡️ Going to next page...");
           return true;
