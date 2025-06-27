@@ -1,4 +1,4 @@
-// ✅ FINAL LINKEDIN PIPELINE EXTENSION
+// ✅ FINAL LINKEDIN PIPELINE & SEARCH EXTENSION
 // Scrolls, paginates, extracts public URLs by resolving Recruiter profile IDs
 
 (async () => {
@@ -55,11 +55,29 @@
     }
   
     function goToNextPage() {
-      const next = document.querySelector('a[data-test-pagination-next]');
-      if (next && !next.getAttribute('aria-disabled')) {
-        next.click();
-        console.log("➡️ Going to next page...");
-        return true;
+      const selectors = [
+        'a[data-test-pagination-next]',
+        'button[data-test-pagination-next]',
+        'button[data-test-pagination-next-page]',
+        'a[aria-label="Next"]',
+        'a[aria-label="Next Page"]',
+        'a[aria-label="Next page"]',
+        'button[aria-label="Next"]',
+        'button[aria-label="Next Page"]',
+        'button[aria-label="Next page"]'
+      ];
+      for (const sel of selectors) {
+        const next = document.querySelector(sel);
+        if (
+          next &&
+          next.offsetParent !== null &&
+          !next.disabled &&
+          next.getAttribute('aria-disabled') !== 'true'
+        ) {
+          next.click();
+          console.log("➡️ Going to next page...");
+          return true;
+        }
       }
       return false;
     }
@@ -84,7 +102,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "linkedin_pipeline_profiles.csv";
+    a.download = "linkedin_profiles.csv";
     a.click();
     URL.revokeObjectURL(url);
   
