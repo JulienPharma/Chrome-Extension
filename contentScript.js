@@ -54,28 +54,35 @@
       }
     }
   
-    function goToNextPage() {
-      const selectors = [
-        'a[data-test-pagination-next]',
-        'button[data-test-pagination-next]',
-        'button[data-test-pagination-next-page]',
-        'a[aria-label="Next"]',
-        'a[aria-label="Next Page"]',
-        'a[aria-label="Next page"]',
-        'button[aria-label="Next"]',
-        'button[aria-label="Next Page"]',
-        'button[aria-label="Next page"]'
-      ];
-      for (const sel of selectors) {
-        const next = document.querySelector(sel);
-        if (next && !next.getAttribute('aria-disabled')) {
-          next.click();
-          console.log("➡️ Going to next page...");
-          return true;
+      function goToNextPage() {
+        const selectors = [
+          'a[data-test-pagination-next]',
+          'button[data-test-pagination-next]',
+          'button[data-test-pagination-next-page]',
+          'a[aria-label="Next"]',
+          'a[aria-label="Next Page"]',
+          'a[aria-label="Next page"]',
+          'button[aria-label="Next"]',
+          'button[aria-label="Next Page"]',
+          'button[aria-label="Next page"]'
+        ];
+        for (const sel of selectors) {
+          const next = document.querySelector(sel);
+          if (next) {
+            const isDisabled =
+              next.getAttribute('aria-disabled') === 'true' ||
+              next.disabled ||
+              next.classList.contains('disabled') ||
+              next.classList.contains('artdeco-button--disabled');
+            if (!isDisabled) {
+              next.click();
+              console.log("➡️ Going to next page...");
+              return true;
+            }
+          }
         }
+        return false;
       }
-      return false;
-    }
   
     while (true) {
       await wait(2000);
